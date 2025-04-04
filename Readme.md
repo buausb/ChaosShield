@@ -1,7 +1,8 @@
 ## 运行：
 
 以JAR包形式命令行运行，运行需要以root权限运行（模拟网络故障时需要root权限）
-对于Java应用程序的注入依赖于JVM-Sandbox，需要注入Java应用类故障时需确保机器正确安装了JVM-Sandbox
+对于Java应用程序的注入依赖于JVM-Sandbox，
+？？？需要注入Java应用类故障时需确保机器正确安装了JVM-Sandbox？？？
 
 
 确认网络故障注入是否成功，"sudo tc qdisc show dev ens33" （Ubuntu系统默认ens33）
