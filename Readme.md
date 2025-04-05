@@ -10,3 +10,5 @@
 qdisc 全称queueing discipline 网卡的队列规则
 
 由于网络故障注入都是基于覆盖网卡规则实现的，所以同一时刻只能有一个网络故障被注入运行
+
+挂载到Java项目时需要提供javahome路径，安装curl工具
