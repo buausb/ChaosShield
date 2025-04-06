@@ -6,7 +6,7 @@
 <mapper namespace="com.shield.chaosshield.dao.ExperimentDetailDao">
 
     <update id="createTable">
-        CREATE TABLE experiment_detail (
+        CREATE TABLE IF NOT EXISTS experiment_detail (
            id INTEGER PRIMARY KEY AUTOINCREMENT,
            test_id INTEGER NOT NULL,
            chaos_id INTEGER NOT NULL,

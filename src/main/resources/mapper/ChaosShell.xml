@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shield.chaosshield.dao.ChaosShellDao">
+
+    <update id="createTable">
+        CREATE TABLE IF NOT EXISTS chaos_shell (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL UNIQUE,
+            start_path TEXT NOT NULL,
+            end_path TEXT NOT NULL,
+            type INTEGER DEFAULT 0 CHECK (type BETWEEN 0 AND 9), -- 假设有4种故障类型
+            state INTEGER DEFAULT 0 CHECK (state IN (0, 1)),      -- 0-未运行 1-运行中
+            java_home TEXT DEFAULT "",
+            is_deleted INTEGER DEFAULT 0 CHECK (is_deleted IN (0, 1))
+        );
+    </update>
+
+    <select id="selectAll" resultType="chaosShell">
+        SELECT id, name, start_path, end_path, type, state, java_home
+        FROM chaos_shell
+        WHERE is_deleted = 0;
+    </select>
+
+    <select id="selectById" resultType="chaosShell">
+        SELECT id, name, start_path, end_path, type, state, java_home
+        FROM chaos_shell
+        WHERE id = #{id} and is_deleted = 0;
+    </select>
+
+    <update id="deleteById">
+        -- 删除语句
+        UPDATE chaos_shell
+        SET is_deleted = 1
+        WHERE id = #{id};
+    </update>
+
+    <insert id="insert" parameterType="chaosShell">
+        INSERT INTO chaos_shell
+            (name, start_path, end_path, type, state, java_home)
+        VALUES (#{name}, #{startPath}, #{endPath}, #{type}, #{state}, #{javaHome});
+    </insert>
+
+    <update id="update" parameterType="chaosShell">
+        UPDATE chaos_shell
+        SET
+            name = #{name},
+            start_path = #{startPath},
+            end_path = #{endPath},
+            type = #{type},
+            state = #{state},
+            java_home = #{javaHome}
+        WHERE id = #{id};
+    </update>
+</mapper>
