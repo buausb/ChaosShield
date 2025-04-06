@@ -30,5 +30,6 @@
     <!-- 映射文件 -->
     <mappers>
         <mapper resource="mapper/ExperimentTestMapper.xml"/>
+        <mapper resource="mapper/ExperimentDetailMapper.xml"/>
     </mappers>
 </configuration>

@@ -1,5 +1,6 @@
 package com.shield.chaosshield.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,15 +17,15 @@ public class ExperimentDetail {
     /**
      * 归属实验ID
      */
-    private Integer  test_id;
+    private Integer  testId;
     /**
      * 故障脚本ID
      */
-    private Integer  chaos_id;
+    private Integer  chaosId;
     /**
      * 故障名称
      */
-    private  String chaos_name;
+    private  String chaosName;
     /**
      * 执行位次
      */
@@ -36,11 +37,13 @@ public class ExperimentDetail {
     /**
      * 创建时间
      */
-    private Date  create_time;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date  createTime;
     /**
      * 更新时间
      */
-    private Date update_time;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
     /**
      * 删除标志
      */

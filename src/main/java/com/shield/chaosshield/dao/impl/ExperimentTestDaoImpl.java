@@ -6,7 +6,6 @@ import com.shield.chaosshield.pojo.ExperimentTest;
 import org.apache.ibatis.session.SqlSession;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 public class ExperimentTestDaoImpl implements ExperimentTestDao {
@@ -24,6 +23,7 @@ public class ExperimentTestDaoImpl implements ExperimentTestDao {
         return 0;
     }
 
+    @Override
     public Integer createTrigger() {
         try (SqlSession session = MyBatisUtil.getSqlSession()) {
             ExperimentTestDao mapper = session.getMapper(ExperimentTestDao.class);
@@ -57,9 +57,6 @@ public class ExperimentTestDaoImpl implements ExperimentTestDao {
         ExperimentTest test = null;
 
         try (SqlSession session = MyBatisUtil.getSqlSession()) {
-            // Person person = session.selectOne("com.mouday.dao.PersonDao.selectById", 1);
-            // 等价于
-
             ExperimentTestDao mapper = session.getMapper(ExperimentTestDao.class);
             test = mapper.selectById(id);
 
@@ -86,6 +83,15 @@ public class ExperimentTestDaoImpl implements ExperimentTestDao {
 
     @Override
     public Integer update(ExperimentTest test) {
+        try (SqlSession session = MyBatisUtil.getSqlSession()) {
+            ExperimentTestDao mapper = session.getMapper(ExperimentTestDao.class);
+            Integer result = mapper.update(test);
+            session.commit();
+            return result;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return 0;
     }
 

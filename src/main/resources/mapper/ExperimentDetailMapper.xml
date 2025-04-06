@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shield.chaosshield.dao.ExperimentDetailDao">
+
+    <update id="createTable">
+        CREATE TABLE experiment_detail (
+           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           test_id INTEGER NOT NULL,
+           chaos_id INTEGER NOT NULL,
+           chaos_name TEXT NOT NULL,
+           "order" INTEGER NOT NULL CHECK ("order" > 0),  -- order 是 SQL 关键字需要转义
+           state INTEGER DEFAULT 0,
+           create_time TEXT DEFAULT CURRENT_TIMESTAMP,
+           update_time TEXT DEFAULT CURRENT_TIMESTAMP,
+           is_deleted INTEGER DEFAULT 0 CHECK (is_deleted IN (0, 1))
+        );
+    </update>
+
+    <update id="createTrigger">
+        -- 创建更新时间触发器
+        CREATE TRIGGER IF NOT EXISTS trg_experiment_detail_update
+        AFTER UPDATE ON experiment_detail
+        BEGIN
+            UPDATE experiment_detail
+            SET update_time = CURRENT_TIMESTAMP
+            WHERE id = OLD.id;
+        END;
+    </update>
+
+    <select id="selectAll" resultType="ExperimentDetail">
+        SELECT * FROM experiment_detail
+        WHERE is_deleted = 0;
+    </select>
+
+    <select id="selectById" resultType="ExperimentDetail">
+        SELECT * FROM experiment_detail
+        WHERE id = #{id} and is_deleted = 0;
+    </select>
+
+    <update id="deleteById">
+        UPDATE experiment_detail
+        SET is_deleted = 1
+        WHERE id = #{id};
+    </update>
+
+    <insert id="insert" useGeneratedKeys="true" parameterType="ExperimentDetail">
+        INSERT INTO experiment_detail
+            (test_id, chaos_id, chaos_name, "order", state)
+        VALUES (#{testId}, #{chaosId}, #{chaosName}, #{order}, #{state});
+    </insert>
+
+    <update id="update" parameterType="ExperimentDetail">
+        UPDATE experiment_detail
+        SET
+            test_id = #{testId},
+            chaos_id = #{chaosId},
+            chaos_name = #{chaosName},
+            "order" = #{order},
+            state = #{state}
+        WHERE id = #{id};
+    </update>
+
+</mapper>

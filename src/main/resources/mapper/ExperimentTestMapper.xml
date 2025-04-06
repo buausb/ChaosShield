@@ -14,7 +14,7 @@
         state INTEGER DEFAULT 0,
         create_time TEXT DEFAULT CURRENT_TIMESTAMP,
         update_time TEXT DEFAULT CURRENT_TIMESTAMP,
-        is_deleted INTEGER DEFAULT 0
+        is_deleted INTEGER DEFAULT 0 CHECK (is_deleted IN (0, 1))
     )
     </update>
 
@@ -45,13 +45,13 @@
         WHERE id = #{id};
     </delete>
 
-    <insert id="insert" useGeneratedKeys="true">
+    <insert id="insert" useGeneratedKeys="true" parameterType="ExperimentTest">
         INSERT INTO experiment_test
             (name, pid, java_pid, state)
         VALUES (#{name}, #{pid}, #{javaPid}, #{state});
     </insert>
 
-    <update id="update">
+    <update id="update" parameterType="ExperimentDetail">
         UPDATE experiment_test
         SET
             name = #{name},
