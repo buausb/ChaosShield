@@ -16,6 +16,11 @@ public class Weaver {
     private static ExperimentDetailDao experimentDetailDao = new ExperimentDetailDaoImpl();
 
     public static void weave(int testId, List<Integer> shellIds) {
+        List<ExperimentDetail> experimentDetails = experimentDetailDao.selectByTestId(testId);
+        if (experimentDetails != null && experimentDetails.size() > 0) {
+            System.out.println("==> 编排失败：单个实验只能编排一次 <==");
+            return;
+        }
         ChaosShell shell;
         int num = 0;
         for (int id : shellIds) {
