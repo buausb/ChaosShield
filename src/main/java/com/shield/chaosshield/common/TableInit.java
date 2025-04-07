@@ -14,6 +14,7 @@ public class TableInit {
     static {
         initExperimentTestTable();
         initExperimentDetailTable();
+        initChaosShellTable();
     }
 
     public static void initExperimentTestTable() {
@@ -29,144 +30,127 @@ public class TableInit {
     }
 
     public static void initChaosShellTable() {
-//        ChaosShellDao dao = new ChaosShellDaoImpl();
-//        dao.createTable();
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("内存使用率高")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("CPU利用率高")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("磁盘满")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("磁盘IO高")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("网络延迟")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("网络丢包")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("包重复")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("包乱序")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-//        insertIfNotExists(
-//                ChaosShell.builder()
-//                        .name("")
-//                        .startPath("")
-//                        .endPath("")
-//                        .type()
-//                        .javaHome("")
-//                        .params("")
-//                        .state()
-//                        .isDeleted(0).build()
-//        );
-        // TODO 插入注入本机的数据，注意数据不能重复
-        // TODO 之后插入java application类型故障时候单独手动操作
+        ChaosShellDao dao = new ChaosShellDaoImpl();
+        dao.createTable();
+        insertIfNotExists(dao,
+                ChaosShell.builder()
+                        .name("内存使用率高")
+                        .startPath("./src/main/java/com/shield/chaosshield/shell/cachHigh/cache_high.sh")
+                        .endPath("。/src/main/java/com/shield/chaosshield/shell/cachHigh/kill_cache_high.sh")
+                        .type(2)
+                        .javaHome("")
+                        .params("")
+                        .state(0)
+                        .isDeleted(0).build()
+        );
+        insertIfNotExists(dao,
+                ChaosShell.builder()
+                        .name("CPU利用率高")
+                        .startPath("./src/main/java/com/shield/chaosshield/shell/cpuHigh/cpu_high.sh")
+                        .endPath("./src/main/java/com/shield/chaosshield/shell/cpuHigh/kill_cpu_high.sh")
+                        .type(3)
+                        .javaHome("")
+                        .params("")
+                        .state(0)
+                        .isDeleted(0).build()
+        );
+        insertIfNotExists(dao,
+                ChaosShell.builder()
+                        .name("磁盘满")
+                        .startPath("./src/main/java/com/shield/chaosshield/shell/diskFull/disk_full.sh")
+                        .endPath("./src/main/java/com/shield/chaosshield/shell/diskFull/kill_disk_full.sh")
+                        .type(4)
+                        .javaHome("")
+                        .params("")
+                        .state(0)
+                        .isDeleted(0).build()
+        );
+        insertIfNotExists(dao,
+                ChaosShell.builder()
+                        .name("磁盘IO高")
+                        .startPath("./src/main/java/com/shield/chaosshield/shell/diskIOHigh/disk_io_high.sh")
+                        .endPath("./src/main/java/com/shield/chaosshield/shell/diskIOHigh/kill_disk_io_high.sh")
+                        .type(4)
+                        .javaHome("")
+                        .params("")
+                        .state(0)
+                        .isDeleted(0).build()
+        );
+        insertIfNotExists(dao,
+                ChaosShell.builder()
+                        .name("网络延迟")
+                        .startPath("./src/main/java/com/shield/chaosshield/shell/network/packageDelay/package_delay.sh")
+                        .endPath("./src/main/java/com/shield/chaosshield/shell/network/packageDelay/kill_package_delay.sh")
+                        .type(5)
+                        .javaHome("")
+                        .params("")
+                        .state(0)
+                        .isDeleted(0).build()
+        );
+        insertIfNotExists(dao,
+                ChaosShell.builder()
+                        .name("网络丢包")
+                        .startPath("./src/main/java/com/shield/chaosshield/shell/network/packageLost/package_lost.sh")
+                        .endPath("./src/main/java/com/shield/chaosshield/shell/network/packageLost/kill_package_lost.sh")
+                        .type(5)
+                        .javaHome("")
+                        .params("")
+                        .state(0)
+                        .isDeleted(0).build()
+        );
+        insertIfNotExists(dao,
+                ChaosShell.builder()
+                        .name("包重复")
+                        .startPath("./src/main/java/com/shield/chaosshield/shell/network/packageRepeat/kill_package_repeat.sh")
+                        .endPath("./src/main/java/com/shield/chaosshield/shell/network/packageRepeat/package_repeat.sh")
+                        .type(5)
+                        .javaHome("")
+                        .params("")
+                        .state(0)
+                        .isDeleted(0).build()
+        );
+        insertIfNotExists(dao,
+                ChaosShell.builder()
+                        .name("包乱序")
+                        .startPath("./src/main/java/com/shield/chaosshield/shell/network/packageShuffle/package_shuffle.sh")
+                        .endPath("。/src/main/java/com/shield/chaosshield/shell/network/packageShuffle/kill_package_shuffle.sh")
+                        .type(5)
+                        .javaHome("")
+                        .params("")
+                        .state(0)
+                        .isDeleted(0).build()
+        );
+        insertIfNotExists(dao,
+                ChaosShell.builder()
+                        .name("项目APP->改变方法返回值->String类")
+                        .startPath("")
+                        .endPath("")
+                        .type(1)
+                        .javaHome("/usr/lib/jvm/java-8-openjdk-amd64")
+                        .params("change-method-ret-val-moudle/change?class=com.shield.App&method=getStr&ret_class=java.lang.String&ret_val=2")
+                        .state(0)
+                        .isDeleted(0).build()
+        );
+        insertIfNotExists(dao,
+                ChaosShell.builder()
+                        .name("项目APP->延迟方法执行->5秒")
+                        .startPath("")
+                        .endPath("")
+                        .type(1)
+                        .javaHome("/usr/lib/jvm/java-8-openjdk-amd64")
+                        .params("method-delay-module/delay?class=com.shield.App&method=getStr&delayTime=5000")
+                        .state(0)
+                        .isDeleted(0).build()
+        );
     }
 
 
-    public static Integer insertIfNotExists(ChaosShellDao dao, ChaosShell shell) {
+    private static Integer insertIfNotExists(ChaosShellDao dao, ChaosShell shell) {
         ChaosShell chaosShell = dao.selectByName(shell.getName());
         if (chaosShell == null) {
             return dao.insert(shell);
         }
         return 0;
-    }
-
-    public static void main(String[] args) {
-//        ProcessBuilder pb = new ProcessBuilder("sh","")
     }
 
 }

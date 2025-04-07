@@ -1,5 +1,8 @@
 package com.shield.chaosshield.common;
 
+import lombok.Getter;
+
+@Getter
 public enum ChaosType {
 
     Application(1,"JAVA应用"),
