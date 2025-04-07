@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 
 public interface Executer {
-    int start(int pid, int javaPid, ChaosShell shell) throws Exception;
+    int start(int javaPid, ChaosShell shell) throws Exception;
     void stop(int pid, int javaPid, ChaosShell shell) throws Exception;
 
     default int executeProcess(ProcessBuilder pb) throws Exception {
@@ -22,7 +22,7 @@ public interface Executer {
             System.out.println(ret);
         }
         // 进程pid
-        Field pidField = pb.getClass().getDeclaredField("pid");
+        Field pidField = process.getClass().getDeclaredField("pid");
         pidField.setAccessible(true);
         int pid = pidField.getInt(process);
         // 执行结果

@@ -61,4 +61,9 @@
         SELECT FROM chaos_shell
         WHERE name = #{name} and is_deleted = 0
     </select>
+
+    <select id="selectRunningByType" resultType="chaosShell">
+        SELECT * FROM chaos_shell
+        WHERE type = #{type} and state = 1
+    </select>
 </mapper>

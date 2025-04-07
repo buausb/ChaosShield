@@ -9,7 +9,6 @@
     CREATE TABLE IF NOT EXISTS `experiment_test` (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        pid INTEGER default 0,
         java_pid INTEGER default 0,
         state INTEGER DEFAULT 0,
         create_time TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -47,15 +46,14 @@
 
     <insert id="insert" useGeneratedKeys="true" parameterType="ExperimentTest">
         INSERT INTO experiment_test
-            (name, pid, java_pid, state)
-        VALUES (#{name}, #{pid}, #{javaPid}, #{state});
+            (name, java_pid, state)
+        VALUES (#{name}, #{javaPid}, #{state});
     </insert>
 
     <update id="update" parameterType="ExperimentDetail">
         UPDATE experiment_test
         SET
             name = #{name},
-            pid = #{pid},
             java_pid = #{javaPid},
             state = #{state}
         WHERE id = #{id};

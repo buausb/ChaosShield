@@ -20,4 +20,6 @@ public interface ExperimentDetailDao {
 
     Integer update(ExperimentDetail detail);
 
+    List<ExperimentDetail> selectByTestId(Integer testId);
+
 }

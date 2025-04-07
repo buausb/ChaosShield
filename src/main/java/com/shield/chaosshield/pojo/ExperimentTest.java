@@ -17,10 +17,7 @@ public class ExperimentTest {
      * 实验名称
      */
     private String name;
-    /**
-     * 实验进程Pid
-     */
-    private Integer pid;
+
     /**
      * 挂载Java项目Pid
      */
@@ -44,17 +41,4 @@ public class ExperimentTest {
      */
     private Integer isDeleted;
 
-    @Override
-    public String toString() {
-        return "ExperimentTest{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", pid=" + pid +
-                ", javaPid=" + javaPid +
-                ", state=" + state +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", isDeleted=" + isDeleted +
-                '}';
-    }
 }

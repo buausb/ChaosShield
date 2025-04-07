@@ -111,4 +111,19 @@ public class ChaosShellDaoImpl implements ChaosShellDao {
         return result;
     }
 
+    @Override
+    public List<ChaosShell> selectRunningByType(Integer type) {
+        List<ChaosShell> list = new ArrayList<>();
+        try (SqlSession session = MyBatisUtil.getSqlSession()) {
+            ChaosShellDao mapper = session.getMapper(ChaosShellDao.class);
+            list = mapper.selectRunningByType(type);
+            session.commit();
+            return list;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }

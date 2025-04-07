@@ -7,7 +7,7 @@ import com.shield.chaosshield.pojo.ChaosShell;
 public class ApplicationChaosExecuter implements Executer {
 
     @Override
-    public int start(int pid, int javaPid, ChaosShell shell) throws Exception {
+    public int start(int javaPid, ChaosShell shell) throws Exception {
         if (!ChaosType.Application.getType().equals(shell.getType())) {
             return -1;
         }
@@ -15,7 +15,7 @@ public class ApplicationChaosExecuter implements Executer {
         ProcessBuilder pb = new ProcessBuilder("./sandbox/bin/sandbox.sh", "-p", Integer.toString(javaPid));
         executeProcess(pb);
         // 执行注入
-        pb.command("./sandbox/bin/sandbox.sh", "-p", Integer.toString(pid), "-d", shell.getParams());
+        pb.command("./sandbox/bin/sandbox.sh", "-p", Integer.toString(javaPid), "-d", shell.getParams());
         return executeProcess(pb);
     }
 

@@ -27,6 +27,10 @@ public class ExperimentDetail {
      */
     private  String chaosName;
     /**
+     * 脚本进程Pid
+     */
+    private Integer pid;
+    /**
      * 执行位次
      */
     private Integer  order;

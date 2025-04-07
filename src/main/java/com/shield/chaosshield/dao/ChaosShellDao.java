@@ -18,4 +18,6 @@ public interface ChaosShellDao {
     Integer update(ChaosShell shell);
 
     ChaosShell selectByName(String name);
+
+    List<ChaosShell> selectRunningByType(Integer type);
 }

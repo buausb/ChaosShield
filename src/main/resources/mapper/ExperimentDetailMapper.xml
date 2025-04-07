@@ -11,6 +11,7 @@
            test_id INTEGER NOT NULL,
            chaos_id INTEGER NOT NULL,
            chaos_name TEXT NOT NULL,
+           pid INTEGER default 0,
            "order" INTEGER NOT NULL CHECK ("order" > 0),  -- order 是 SQL 关键字需要转义
            state INTEGER DEFAULT 0,
            create_time TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -58,9 +59,16 @@
             test_id = #{testId},
             chaos_id = #{chaosId},
             chaos_name = #{chaosName},
+            pid = #{pid},
             "order" = #{order},
             state = #{state}
         WHERE id = #{id};
     </update>
+
+    <select id="selectByTestId" resultType="experimentDetail">
+        SELECT * FROM experiment_detail
+        WHERE test_id = #{testId} and is_deleted = 0
+        ORDER BY "order" ASC;
+    </select>
 
 </mapper>

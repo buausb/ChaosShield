@@ -8,11 +8,11 @@ import java.lang.reflect.Field;
 
 public class MachineChaosExecuter  implements Executer {
     @Override
-    public int start(int pid, int javaPid, ChaosShell shell) throws Exception{
+    public int start(int javaPid, ChaosShell shell) throws Exception{
         if (ChaosType.Application.getType().equals(shell.getType())) {
             return -1;
         }
-        ProcessBuilder pb = new ProcessBuilder("sh",shell.getStartPath(), Integer.toString(pid));
+        ProcessBuilder pb = new ProcessBuilder("sh",shell.getStartPath());
         return executeProcess(pb);
 
     }

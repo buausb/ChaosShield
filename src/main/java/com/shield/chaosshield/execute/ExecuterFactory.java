@@ -6,10 +6,10 @@ import com.shield.chaosshield.pojo.ChaosShell;
 
 public class ExecuterFactory {
 
-    Executer applicationExecuter = new ApplicationChaosExecuter();
-    Executer machineExecuter = new MachineChaosExecuter();
+    private static Executer applicationExecuter = new ApplicationChaosExecuter();
+    private static Executer machineExecuter = new MachineChaosExecuter();
 
-    public Executer getExecuter(ChaosShell shell) {
+    public static Executer getExecuter(ChaosShell shell) {
         switch (shell.getType()) {
             case 1 : return applicationExecuter;
             case 2 :

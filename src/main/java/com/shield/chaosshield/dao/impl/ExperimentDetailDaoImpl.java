@@ -109,4 +109,19 @@ public class ExperimentDetailDaoImpl implements ExperimentDetailDao {
         }
         return 0;
     }
+
+    @Override
+    public List<ExperimentDetail> selectByTestId(Integer testId) {
+        List<ExperimentDetail> list = new ArrayList<>();
+        try (SqlSession session = MyBatisUtil.getSqlSession()) {
+            ExperimentDetailDao mapper = session.getMapper(ExperimentDetailDao.class);
+            list = mapper.selectByTestId(testId);
+            session.commit();
+            return list;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
