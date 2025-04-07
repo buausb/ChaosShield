@@ -1,12 +1,10 @@
 package com.shield.chaosshield.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChaosShell {
@@ -39,6 +37,10 @@ public class ChaosShell {
      * 本机JAVA_HOME路径
      */
     private String javaHome;
+    /**
+     * 执行参数
+     */
+    private String params;
     /**
      * 删除标志
      */

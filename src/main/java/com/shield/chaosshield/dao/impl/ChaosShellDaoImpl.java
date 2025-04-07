@@ -95,4 +95,20 @@ public class ChaosShellDaoImpl implements ChaosShellDao {
         }
         return 0;
     }
+
+    @Override
+    public ChaosShell selectByName(String name) {
+        ChaosShell result = new ChaosShell();
+        try (SqlSession session = MyBatisUtil.getSqlSession()) {
+            ChaosShellDao mapper = session.getMapper(ChaosShellDao.class);
+            result = mapper.selectByName(name);
+            session.commit();
+            return result;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }

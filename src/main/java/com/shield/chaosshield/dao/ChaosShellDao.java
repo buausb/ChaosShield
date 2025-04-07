@@ -16,4 +16,6 @@ public interface ChaosShellDao {
     Integer insert(ChaosShell shell);
 
     Integer update(ChaosShell shell);
+
+    ChaosShell selectByName(String name);
 }
