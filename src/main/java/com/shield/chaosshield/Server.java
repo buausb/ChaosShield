@@ -34,6 +34,8 @@ public class Server {
         server.start();
     }
 
+
+    // TODO shield -check [java_pid] 有参数则查看Java项目挂载的moudle，没有则显示当前机器运行的Java项目pid
     private void start() {
         Scanner s = new Scanner(System.in);
         String cmd;
@@ -91,7 +93,7 @@ public class Server {
          |  shield -d [testID] detail 展示实验编排细节
          |  shield -ac 展示所有故障 all chaos
          |  shield -act 展示故障类别 all chaos type
-         |  shield -nt [testName] [目标JAVA项目的ｐｉｄ（如有）]新建实验 new test
+         |  shield -nt [testName] [目标JAVA项目的ｐｉｄ（没有写0）]新建实验 new test
          |  shield -nd [testID] [chaosID,chaosID...] 编排实验内容 new details
          |  shield -ns [name] [type] [startPath] [endPath] [JAVA_HOME] [params]　新增chaos shell new shell
          |  shield -e [testID] 执行实验 execute
@@ -107,7 +109,7 @@ public class Server {
                 "         |  shield -d [testID] detail 展示实验编排细节\n" +
                 "         |  shield -ac 展示所有故障 all chaos\n" +
                 "         |  shield -act 展示故障类别 all chaos type\n" +
-                "         |  shield -nt [testName] [目标JAVA项目的ｐｉｄ（如有）]新建实验 new test\n" +
+                "         |  shield -nt [testName] [目标JAVA项目的ｐｉｄ（没有写0）]新建实验 new test\n" +
                 "         |  shield -nd [testID] [chaosID,chaosID...] 编排实验内容 new details\n" +
                 "         |  shield -ns [name] [type] [startPath] [endPath] [JAVA_HOME] [params]　新增chaos shell new shell\n" +
                 "         |  shield -e [testID] 执行实验 execute\n" +
@@ -163,7 +165,7 @@ public class Server {
         }
         System.out.println("+————————————————————————————————————————————————————————");
     }
-    // shield -nt [testName] [目标JAVA项目的ｐｉｄ（如有）]新建实验 new test
+    // shield -nt [testName] [目标JAVA项目的ｐｉｄ（没有写0）]新建实验 new test
     private void showNewTest(String[] subCmd) {
         if (subCmd.length != 3 && subCmd.length != 4) {
             System.out.println("=> 新建实验 shield -nt [testName] [目标JAVA项目的ｐｉｄ（如有）] <=");
