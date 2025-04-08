@@ -23,8 +23,8 @@ public class Scheduler {
     private static ExperimentDetailDao experimentDetailDao = new ExperimentDetailDaoImpl();
     private static ChaosShellDao chaosShellDao = new ChaosShellDaoImpl();
 
-    private static String startLock = "start";
-    private static String shutdownLock = "shutdown";
+    private static final String STARTLOCK = "start";
+    private static final String SHUTDOWNLOCK = "shutdown";
 
     public static void startTest(int testId, int javaPid) {
         ExperimentTest test = experimentTestDao.selectById(testId);
@@ -36,7 +36,7 @@ public class Scheduler {
             System.out.println("=> TEST IS RUNNING <=");
             return;
         }
-        synchronized (startLock) {
+        synchronized (STARTLOCK) {
             List<ExperimentDetail> experimentDetails = experimentDetailDao.selectByTestId(testId);
             ChaosShell shell;
             for (ExperimentDetail detail : experimentDetails) {
@@ -84,7 +84,7 @@ public class Scheduler {
             System.out.println("=> TEST IS NOT RUNNING <=");
             return;
         }
-        synchronized (shutdownLock) {
+        synchronized (SHUTDOWNLOCK) {
             List<ExperimentDetail> experimentDetails = experimentDetailDao.selectByTestId(testId);
             ChaosShell shell;
             for (ExperimentDetail detail : experimentDetails) {

@@ -201,7 +201,7 @@ public class Server {
             return;
         }
         Weaver.weave(testId, chaosIdList);
-        System.out.println("=> Weave Succeed <=");
+        System.out.println("=> 新建编排成功 <=");
     }
     // shield -ns [name] [type] [startPath] [endPath] [JAVA_HOME] [params]　新增chaos shell new shell
     private void showNewShell(String[] subCmd) {
@@ -226,6 +226,7 @@ public class Server {
                         .params(subCmd[7])
                         .build()
         );
+        System.out.println("=> 添加成功 <=");
     }
     // shield -e [testID] 执行实验 execute
     private void executeTest(String[] subCmd) {
@@ -246,7 +247,7 @@ public class Server {
             return;
         }
         Scheduler.startTest(testId, experimentTest.getJavaPid());
-
+        System.out.println("=> 正在执行 <=");
     }
     // shield -s [testID] 终止实验 execute
     private void stopTest(String[] subCmd) {
@@ -267,6 +268,7 @@ public class Server {
             return;
         }
         Scheduler.shutdownTest(testId, experimentTest.getJavaPid());
+        System.out.println("=> 终止完毕 <=");
     }
     // shield -dt [testID] 删除实验，连带实验编排 delete test
     private void showDeleteTest(String[] subCmd) {
@@ -283,6 +285,7 @@ public class Server {
         }
         experimentTestDao.deleteById(testId);
         experimentDetailDao.deleteByTestId(testId);
+        System.out.println("=> 删除成功 <=");
     }
     // shield -dc [chaosID] 删除故障 delete chaos
     private void showDeleteChaos(String[] subCmd) {
@@ -298,6 +301,7 @@ public class Server {
             return;
         }
         chaosShellDao.deleteById(chaosId);
+        System.out.println("=> 删除成功 <=");
     }
 
 
