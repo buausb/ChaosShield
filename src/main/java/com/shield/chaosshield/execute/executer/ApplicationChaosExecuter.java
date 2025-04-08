@@ -19,7 +19,7 @@ public class ApplicationChaosExecuter implements Executer {
         pb.environment().put("JAVA_HOME",shell.getJavaHome());
         executeProcess(pb);
         // 执行注入
-        pb.command("./sandbox/bin/sandbox.sh", "-p", Integer.toString(javaPid), "-d", shell.getParams());
+        pb.command("./sandbox.sh", "-p", Integer.toString(javaPid), "-d", shell.getParams());
         return executeProcess(pb);
     }
 
@@ -29,7 +29,8 @@ public class ApplicationChaosExecuter implements Executer {
             return;
         }
         // 卸载Sandbox
-        ProcessBuilder pb = new ProcessBuilder("./sandbox/bin/sandbox.sh", "-p", Integer.toString(javaPid), "-S");
+        ProcessBuilder pb = new ProcessBuilder("./sandbox.sh", "-p", Integer.toString(javaPid), "-S");
+        pb.directory(new File("./sandbox/bin"));
         pb.environment().put("JAVA_HOME",shell.getJavaHome());
         executeProcess(pb);
     }
