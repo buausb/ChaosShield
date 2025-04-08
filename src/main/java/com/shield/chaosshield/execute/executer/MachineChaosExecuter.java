@@ -4,7 +4,6 @@ import com.shield.chaosshield.common.ChaosType;
 import com.shield.chaosshield.execute.Executer;
 import com.shield.chaosshield.pojo.ChaosShell;
 
-import java.lang.reflect.Field;
 
 public class MachineChaosExecuter  implements Executer {
     @Override
