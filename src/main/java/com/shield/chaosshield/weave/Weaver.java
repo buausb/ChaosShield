@@ -26,6 +26,7 @@ public class Weaver {
         for (int id : shellIds) {
              shell = chaosShellDao.selectById(id);
              if (shell == null) {
+                 System.out.println("=>ID不存在:" + id + "<=");
                  continue;
              }
              experimentDetailDao.insert(

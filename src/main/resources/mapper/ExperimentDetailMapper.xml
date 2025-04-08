@@ -71,4 +71,10 @@
         ORDER BY "order" ASC;
     </select>
 
+    <update id="deleteByTestId">
+        UPDATE experiment_detail
+        SET is_deleted = 1
+        WHERE test_id = #{testId};
+    </update>
+
 </mapper>

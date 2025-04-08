@@ -1,5 +1,6 @@
 package com.shield.chaosshield.pojo;
 
+import com.shield.chaosshield.common.ChaosType;
 import lombok.*;
 
 @Getter
@@ -46,4 +47,17 @@ public class ChaosShell {
      */
     private Integer  isDeleted;
 
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startPath='" + startPath + '\'' +
+                ", endPath='" + endPath + '\'' +
+                ", type=" + ChaosType.getName(type) +
+                ", state=" + state +
+                ", javaHome='" + javaHome + '\'' +
+                ", params='" + params + '\'' +
+                '}';
+    }
 }

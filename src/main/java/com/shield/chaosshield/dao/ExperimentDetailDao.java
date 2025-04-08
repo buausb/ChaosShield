@@ -22,4 +22,6 @@ public interface ExperimentDetailDao {
 
     List<ExperimentDetail> selectByTestId(Integer testId);
 
+    Integer deleteByTestId(Integer testId);
+
 }

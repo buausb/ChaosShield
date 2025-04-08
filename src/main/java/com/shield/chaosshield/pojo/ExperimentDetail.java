@@ -1,14 +1,14 @@
 package com.shield.chaosshield.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class ExperimentDetail {
 
@@ -55,4 +55,17 @@ public class ExperimentDetail {
      */
     private Integer  isDeleted;
 
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", testId=" + testId +
+                ", chaosName='" + chaosName + '\'' +
+                ", pid=" + pid +
+                ", order=" + order +
+                ", state=" + state +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

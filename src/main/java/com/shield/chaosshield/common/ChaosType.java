@@ -20,7 +20,7 @@ public enum ChaosType {
         this.name = name;
     }
 
-    public String getName(int type) {
+    public static String getName(int type) {
         for (ChaosType t : ChaosType.values()) {
             if (type == t.type) {
                 return t.name;

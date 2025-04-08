@@ -124,4 +124,18 @@ public class ExperimentDetailDaoImpl implements ExperimentDetailDao {
         }
         return list;
     }
+
+    @Override
+    public Integer deleteByTestId(Integer testId) {
+        try (SqlSession session = MyBatisUtil.getSqlSession()) {
+            ExperimentDetailDao mapper = session.getMapper(ExperimentDetailDao.class);
+            Integer result = mapper.deleteByTestId(testId);
+            session.commit();
+            return result;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
