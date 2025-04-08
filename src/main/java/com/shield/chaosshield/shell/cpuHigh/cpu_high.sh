@@ -1,2 +1,2 @@
 #!/bin/bash
-`yes>/dev/null &`
+while true; do sha1sum /dev/zero; done &  # 后台运行
