@@ -17,12 +17,17 @@ import com.shield.chaosshield.weave.Weaver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Server {
 
     ExperimentTestDao experimentTestDao = new ExperimentTestDaoImpl();
     ExperimentDetailDao experimentDetailDao = new ExperimentDetailDaoImpl();
     ChaosShellDao chaosShellDao = new ChaosShellDaoImpl();
+
+    ThreadPoolExecutor pool = new ThreadPoolExecutor(5,20,60, TimeUnit.SECONDS, new SynchronousQueue<>());
 
     public static void main(String[] args) {
         TableInit.init();
@@ -246,7 +251,7 @@ public class Server {
             System.out.println("=> Test ID 不存在 <=");
             return;
         }
-        Scheduler.startTest(testId, experimentTest.getJavaPid());
+        pool.submit(() -> Scheduler.startTest(testId, experimentTest.getJavaPid()));
         System.out.println("=> 正在执行 <=");
     }
     // shield -s [testID] 终止实验 execute
@@ -267,7 +272,7 @@ public class Server {
             System.out.println("=> Test ID 不存在 <=");
             return;
         }
-        Scheduler.shutdownTest(testId, experimentTest.getJavaPid());
+        pool.submit(() -> Scheduler.shutdownTest(testId, experimentTest.getJavaPid()));
         System.out.println("=> 终止完毕 <=");
     }
     // shield -dt [testID] 删除实验，连带实验编排 delete test
