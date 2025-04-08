@@ -4,6 +4,8 @@ import com.shield.chaosshield.common.ChaosType;
 import com.shield.chaosshield.execute.Executer;
 import com.shield.chaosshield.pojo.ChaosShell;
 
+import java.io.File;
+
 public class ApplicationChaosExecuter implements Executer {
 
     @Override
@@ -12,7 +14,8 @@ public class ApplicationChaosExecuter implements Executer {
             return -1;
         }
         // 挂载JVM
-        ProcessBuilder pb = new ProcessBuilder("./sandbox/bin/sandbox.sh", "-p", Integer.toString(javaPid));
+        ProcessBuilder pb = new ProcessBuilder("./sandbox.sh", "-p", Integer.toString(javaPid));
+        pb.directory(new File("./sandbox/bin"));
         pb.environment().put("JAVA_HOME",shell.getJavaHome());
         executeProcess(pb);
         // 执行注入
