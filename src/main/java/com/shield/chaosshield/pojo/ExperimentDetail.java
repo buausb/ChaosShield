@@ -35,7 +35,7 @@ public class ExperimentDetail {
     /**
      * 执行位次
      */
-    private Integer  order;
+    private Integer  orderNum;
     /**
      * 执行状态
      */
@@ -62,7 +62,7 @@ public class ExperimentDetail {
                 ", testId=" + testId +
                 ", chaosName='" + chaosName + '\'' +
                 ", pid=" + pid +
-                ", order=" + order +
+                ", order=" + orderNum +
                 ", state=" + state +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

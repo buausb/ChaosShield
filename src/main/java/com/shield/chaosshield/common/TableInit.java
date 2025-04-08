@@ -11,7 +11,19 @@ import com.shield.chaosshield.pojo.ChaosShell;
 
 public class TableInit {
 
-    static {
+    public static void main(String[] args) {
+        System.out.println(ChaosShell.builder()
+                .name("包乱序")
+                .startPath("./src/main/java/com/shield/chaosshield/shell/network/packageShuffle/package_shuffle.sh")
+                .endPath("./src/main/java/com/shield/chaosshield/shell/network/packageShuffle/kill_package_shuffle.sh")
+                .type(5)
+                .javaHome("")
+                .params("")
+                .state(0)
+                .isDeleted(0).build());
+    }
+
+    public static void init() {
         initExperimentTestTable();
         initExperimentDetailTable();
         initChaosShellTable();
@@ -36,7 +48,7 @@ public class TableInit {
                 ChaosShell.builder()
                         .name("内存使用率高")
                         .startPath("./src/main/java/com/shield/chaosshield/shell/cachHigh/cache_high.sh")
-                        .endPath("。/src/main/java/com/shield/chaosshield/shell/cachHigh/kill_cache_high.sh")
+                        .endPath("./src/main/java/com/shield/chaosshield/shell/cachHigh/kill_cache_high.sh")
                         .type(2)
                         .javaHome("")
                         .params("")
@@ -113,7 +125,7 @@ public class TableInit {
                 ChaosShell.builder()
                         .name("包乱序")
                         .startPath("./src/main/java/com/shield/chaosshield/shell/network/packageShuffle/package_shuffle.sh")
-                        .endPath("。/src/main/java/com/shield/chaosshield/shell/network/packageShuffle/kill_package_shuffle.sh")
+                        .endPath("./src/main/java/com/shield/chaosshield/shell/network/packageShuffle/kill_package_shuffle.sh")
                         .type(5)
                         .javaHome("")
                         .params("")

@@ -12,7 +12,7 @@
            chaos_id INTEGER NOT NULL,
            chaos_name TEXT NOT NULL,
            pid INTEGER default 0,
-           "order" INTEGER NOT NULL CHECK ("order" > 0),  -- order 是 SQL 关键字需要转义
+           order_num INTEGER NOT NULL CHECK (order_num > 0),  -- order 是 SQL 关键字需要转义
            state INTEGER DEFAULT 0,
            create_time TEXT DEFAULT CURRENT_TIMESTAMP,
            update_time TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -49,8 +49,8 @@
 
     <insert id="insert" useGeneratedKeys="true" parameterType="ExperimentDetail">
         INSERT INTO experiment_detail
-            (test_id, chaos_id, chaos_name, "order", state)
-        VALUES (#{testId}, #{chaosId}, #{chaosName}, #{order}, #{state});
+            (test_id, chaos_id, chaos_name, order_num, state)
+        VALUES (#{testId}, #{chaosId}, #{chaosName}, #{orderNum}, #{state});
     </insert>
 
     <update id="update" parameterType="ExperimentDetail">
@@ -60,7 +60,7 @@
             chaos_id = #{chaosId},
             chaos_name = #{chaosName},
             pid = #{pid},
-            "order" = #{order},
+            order_num = #{orderNum},
             state = #{state}
         WHERE id = #{id};
     </update>
@@ -68,7 +68,7 @@
     <select id="selectByTestId" resultType="experimentDetail">
         SELECT * FROM experiment_detail
         WHERE test_id = #{testId} and is_deleted = 0
-        ORDER BY "order" ASC;
+        ORDER BY order_num ASC;
     </select>
 
     <update id="deleteByTestId">

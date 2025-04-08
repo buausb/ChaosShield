@@ -4,18 +4,22 @@ import com.shield.chaosshield.common.ChaosType;
 import com.shield.chaosshield.common.State;
 import com.shield.chaosshield.dao.ChaosShellDao;
 import com.shield.chaosshield.dao.ExperimentDetailDao;
+import com.shield.chaosshield.dao.ExperimentTestDao;
 import com.shield.chaosshield.dao.impl.ChaosShellDaoImpl;
 import com.shield.chaosshield.dao.impl.ExperimentDetailDaoImpl;
+import com.shield.chaosshield.dao.impl.ExperimentTestDaoImpl;
 import com.shield.chaosshield.execute.Executer;
 import com.shield.chaosshield.execute.ExecuterFactory;
 import com.shield.chaosshield.pojo.ChaosShell;
 import com.shield.chaosshield.pojo.ExperimentDetail;
+import com.shield.chaosshield.pojo.ExperimentTest;
 
 import java.util.Collections;
 import java.util.List;
 
 public class Scheduler {
 
+    private static ExperimentTestDao experimentTestDao = new ExperimentTestDaoImpl();
     private static ExperimentDetailDao experimentDetailDao = new ExperimentDetailDaoImpl();
     private static ChaosShellDao chaosShellDao = new ChaosShellDaoImpl();
 
@@ -23,6 +27,15 @@ public class Scheduler {
     private static String shutdownLock = "shutdown";
 
     public static void startTest(int testId, int javaPid) {
+        ExperimentTest test = experimentTestDao.selectById(testId);
+        if (test == null) {
+            System.out.println("=> TEST ID NOT FOUND <=");
+            return;
+        }
+        if (State.RUNNING.getState() == test.getState()) {
+            System.out.println("=> TEST IS RUNNING <=");
+            return;
+        }
         synchronized (startLock) {
             List<ExperimentDetail> experimentDetails = experimentDetailDao.selectByTestId(testId);
             ChaosShell shell;
@@ -52,6 +65,8 @@ public class Scheduler {
                     experimentDetailDao.update(detail);
                     shell.setState(State.RUNNING.getState());
                     chaosShellDao.update(shell);
+                    test.setState(State.RUNNING.getState());
+                    experimentTestDao.update(test);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -60,7 +75,15 @@ public class Scheduler {
     }
 
     public static void shutdownTest(int testId, int javaPid) {
-
+        ExperimentTest test = experimentTestDao.selectById(testId);
+        if (test == null) {
+            System.out.println("=> TEST ID NOT FOUND <=");
+            return;
+        }
+        if (State.NOT_RUNNING.getState() == test.getState()) {
+            System.out.println("=> TEST IS NOT RUNNING <=");
+            return;
+        }
         synchronized (shutdownLock) {
             List<ExperimentDetail> experimentDetails = experimentDetailDao.selectByTestId(testId);
             ChaosShell shell;
@@ -83,6 +106,8 @@ public class Scheduler {
                     experimentDetailDao.update(detail);
                     shell.setState(State.NOT_RUNNING.getState());
                     chaosShellDao.update(shell);
+                    test.setState(State.NOT_RUNNING.getState());
+                    experimentTestDao.update(test);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

@@ -1,6 +1,7 @@
 package com.shield.chaosshield;
 
 import com.shield.chaosshield.common.ChaosType;
+import com.shield.chaosshield.common.TableInit;
 import com.shield.chaosshield.dao.ChaosShellDao;
 import com.shield.chaosshield.dao.ExperimentDetailDao;
 import com.shield.chaosshield.dao.ExperimentTestDao;
@@ -24,6 +25,7 @@ public class Server {
     ChaosShellDao chaosShellDao = new ChaosShellDaoImpl();
 
     public static void main(String[] args) {
+        TableInit.init();
         Server server = new Server();
         server.start();
     }
@@ -69,6 +71,8 @@ public class Server {
                 case "-s" :stopTest(subCmd);break;
                 case "-dt" :showDeleteTest(subCmd);break;
                 case "-dc" :showDeleteChaos(subCmd);break;
+                default:
+                    System.out.println("=>USE shield -h FOR HELP<=");break;
             }
         }
     }
@@ -87,6 +91,7 @@ public class Server {
          |  shield -nd [testID] [chaosID,chaosID...] 编排实验内容 new details
          |  shield -ns [name] [type] [startPath] [endPath] [JAVA_HOME] [params]　新增chaos shell new shell
          |  shield -e [testID] 执行实验 execute
+         |  shield -s [testID] 终止实验 execute
          |  shield -dt [testID] 删除实验，连带实验编排 delete test
          |  shield -dc [chaosID] 删除故障 delete chaos
          +———————————————————————————————————————————————————
@@ -102,6 +107,7 @@ public class Server {
                 "         |  shield -nd [testID] [chaosID,chaosID...] 编排实验内容 new details\n" +
                 "         |  shield -ns [name] [type] [startPath] [endPath] [JAVA_HOME] [params]　新增chaos shell new shell\n" +
                 "         |  shield -e [testID] 执行实验 execute\n" +
+                "         |  shield -s [testID] 终止实验 execute\n" +
                 "         |  shield -dt [testID] 删除实验，连带实验编排 delete test\n" +
                 "         |  shield -dc [chaosID] 删除故障 delete chaos\n" +
                 "         +———————————————————————————————————————————————————");
@@ -195,6 +201,7 @@ public class Server {
             return;
         }
         Weaver.weave(testId, chaosIdList);
+        System.out.println("=> Weave Succeed <=");
     }
     // shield -ns [name] [type] [startPath] [endPath] [JAVA_HOME] [params]　新增chaos shell new shell
     private void showNewShell(String[] subCmd) {

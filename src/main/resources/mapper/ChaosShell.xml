@@ -20,7 +20,7 @@
     </update>
 
     <select id="selectAll" resultType="chaosShell">
-        SELECT id, name, start_path, end_path, type, state, java_home, params
+        SELECT *
         FROM chaos_shell
         WHERE is_deleted = 0;
     </select>
@@ -58,7 +58,7 @@
     </update>
 
     <select id="selectByName" resultType="chaosShell">
-        SELECT FROM chaos_shell
+        SELECT * FROM chaos_shell
         WHERE name = #{name} and is_deleted = 0
     </select>
 

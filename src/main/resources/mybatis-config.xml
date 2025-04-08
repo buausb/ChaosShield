@@ -10,6 +10,7 @@
     <!-- 打印sql日志 -->
     <settings>
         <setting name="logImpl" value="NO_LOGGING"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
     <!-- 指定整个包下的类都是别名 -->
