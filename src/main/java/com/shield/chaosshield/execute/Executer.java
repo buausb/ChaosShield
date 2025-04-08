@@ -24,12 +24,11 @@ public interface Executer {
         // 进程pid
         Field pidField = process.getClass().getDeclaredField("pid");
         pidField.setAccessible(true);
-        int pid = pidField.getInt(process);
+        return pidField.getInt(process);
         // 执行结果
-        int exit = process.waitFor();
-        if (exit != 0) {
-            return -1;
-        }
-        return pid;
+//        int exit = process.waitFor();
+//        if (exit != 0) {
+//            return -1;
+//        }
     }
 }
