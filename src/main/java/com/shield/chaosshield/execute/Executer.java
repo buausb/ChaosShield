@@ -24,7 +24,9 @@ public interface Executer {
         // 进程pid
         Field pidField = process.getClass().getDeclaredField("pid");
         pidField.setAccessible(true);
-        return pidField.getInt(process);
+        int pid = pidField.getInt(process);
+        System.out.println("=> 程序执行 pid:" + pid + " <=");
+        return pid;
         // 执行结果
 //        int exit = process.waitFor();
 //        if (exit != 0) {
