@@ -13,13 +13,26 @@
 *  shield -act 展示故障类别 all chaos type
 *  shield -nt [testName] [目标JAVA项目的ｐｉｄ（没有写0）]新建实验 new test
 *  shield -nd [testID] [chaosID,chaosID...] 编排实验内容 new details
-*  shield -ns [name] [type] [startPath] [endPath] [JAVA_HOME] [params]　新增chaos shell new shell
+*  shield -ns [name] [type] [startPath] [endPath] [JAVA_HOME] [params]　新增故障
 *  shield -e [testID] 执行实验 execute
-*  shield -s [testID] 终止实验 execute
+*  shield -s [testID] 终止实验 shut down
 *  shield -dt [testID] 删除实验，连带实验编排 delete test
 *  shield -dc [chaosID] 删除故障 delete chaos
 *  shield -check_java 显示当前机器运行的Java项目pid
 *  shield -check_web 查看本机网卡规则
+## 名词解释
+* 实验：一次故障演练，其中可以线性注入多种故障
+
+* 编排：把一个或多个故障注册进实验，实验执行时将会线性注入实验内注册的故障
+
+* 新增故障时：
+>startPath为注入执行脚本
+>
+>endPath为取消注入执行脚本
+>
+>JAVA_HOME为本机JAVA_HOME
+>
+>params为故障注入时需要的参数，如注入JAVA应用类时应指明调用的sandbox模块、注入方法及模块需要的参数
 
 ## 故障类别
 * 机器类：
