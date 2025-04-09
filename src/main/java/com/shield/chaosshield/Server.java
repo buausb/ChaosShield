@@ -14,6 +14,8 @@ import com.shield.chaosshield.pojo.ExperimentTest;
 import com.shield.chaosshield.schedule.Scheduler;
 import com.shield.chaosshield.weave.Weaver;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,12 +36,11 @@ public class Server {
         server.start();
     }
 
-
-    // TODO shield -check [java_pid] 有参数则查看Java项目挂载的moudle，没有则显示当前机器运行的Java项目pid
     private void start() {
         Scanner s = new Scanner(System.in);
         String cmd;
         while (true) {
+            System.out.print("ChaosShield>");
             cmd = s.nextLine();
             /**
              *  shield -h 展示所有命令
@@ -57,10 +58,14 @@ public class Server {
              *
              *  shield -dt [testID] 删除实验，连带实验编排 delete test
              *  shield -dc [chaosID] 删除故障 delete chaos
+             *
+             *  shield -check_java 显示当前机器运行的Java项目pid
+             *  shield -check_web 查看本机网卡规则
              * */
             if (cmd.isEmpty()) {continue;}
             String[] subCmd = cmd.split(" ");
             if (subCmd.length < 2 || !"shield".equals(subCmd[0])) {
+                System.out.println("=>USE shield -h FOR HELP<=");
                 continue;
             }
             String opt = subCmd[1];
@@ -77,12 +82,13 @@ public class Server {
                 case "-s" :stopTest(subCmd);break;
                 case "-dt" :showDeleteTest(subCmd);break;
                 case "-dc" :showDeleteChaos(subCmd);break;
+                case "-check_java":checkJava(subCmd);break;
+                case "-check_web":checkWeb(subCmd);break;
                 default:
                     System.out.println("=>USE shield -h FOR HELP<=");break;
             }
         }
     }
-
 
     // shield -h 展示所有命令
     private void showHelp(String[] subCmd) {
@@ -100,6 +106,8 @@ public class Server {
          |  shield -s [testID] 终止实验 execute
          |  shield -dt [testID] 删除实验，连带实验编排 delete test
          |  shield -dc [chaosID] 删除故障 delete chaos
+         |  shield -check_java 显示当前机器运行的Java项目pid
+         |  shield -check_web 查看本机网卡规则
          +———————————————————————————————————————————————————
          */
         System.out.println("" +
@@ -116,6 +124,8 @@ public class Server {
                 "         |  shield -s [testID] 终止实验 execute\n" +
                 "         |  shield -dt [testID] 删除实验，连带实验编排 delete test\n" +
                 "         |  shield -dc [chaosID] 删除故障 delete chaos\n" +
+                "         |  shield -check_java 显示当前机器运行的Java项目pid\n" +
+                "         |  shield -check_web 查看本机网卡规则\n" +
                 "         +———————————————————————————————————————————————————");
     }
     // shield -at 展示所有实验 all test
@@ -309,6 +319,42 @@ public class Server {
         chaosShellDao.deleteById(chaosId);
         System.out.println("=> 删除成功 <=");
     }
+    // shield -check_java 显示当前机器运行的Java项目pid
+    private void checkJava(String[] subCmd) {
+        if (subCmd.length != 2) {
+            System.out.println("=> shield -check_java 有参数则查看Java项目挂载的moudle，没有则显示当前机器运行的Java项目pid <=");
+            return;
+        }
+        try {
+            ProcessBuilder pb = new ProcessBuilder("jps");
+            Process process = pb.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String str;
+            while ((str = reader.readLine()) != null) {
+                System.out.println(str);
+            }
+        } catch (Exception e) {
+            System.out.println("=> 未知故障:shield -check_java [java_pid]  <=");
+        }
+    }
 
+    private void checkWeb(String[] subCmd) {
+        if (subCmd.length != 2) {
+            System.out.println("=> shield -check_web 查看本机网卡规则 <=");
+            return;
+        }
+        try {
+            // tc qdisc show dev ens33
+            ProcessBuilder pb = new ProcessBuilder("tc", "qdisc", "show", "dev", "ens33");
+            Process process = pb.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String str;
+            while ((str = reader.readLine()) != null) {
+                System.out.println(str);
+            }
+        } catch (Exception e) {
+            System.out.println("=> 未知故障:shield -check_web <=");
+        }
+    }
 
 }
