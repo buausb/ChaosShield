@@ -103,7 +103,7 @@ public class Server {
          |  shield -nd [testID] [chaosID,chaosID...] 编排实验内容 new details
          |  shield -ns [name] [type] [startPath] [endPath] [JAVA_HOME] [params]　新增chaos shell new shell
          |  shield -e [testID] 执行实验 execute
-         |  shield -s [testID] 终止实验 execute
+         |  shield -s [testID] 终止实验 shut down
          |  shield -dt [testID] 删除实验，连带实验编排 delete test
          |  shield -dc [chaosID] 删除故障 delete chaos
          |  shield -check_java 显示当前机器运行的Java项目pid
@@ -121,7 +121,7 @@ public class Server {
                 "         |  shield -nd [testID] [chaosID,chaosID...] 编排实验内容 new details\n" +
                 "         |  shield -ns [name] [type] [startPath] [endPath] [JAVA_HOME] [params]　新增chaos shell new shell\n" +
                 "         |  shield -e [testID] 执行实验 execute\n" +
-                "         |  shield -s [testID] 终止实验 execute\n" +
+                "         |  shield -s [testID] 终止实验 shut down\n" +
                 "         |  shield -dt [testID] 删除实验，连带实验编排 delete test\n" +
                 "         |  shield -dc [chaosID] 删除故障 delete chaos\n" +
                 "         |  shield -check_java 显示当前机器运行的Java项目pid\n" +
@@ -265,7 +265,7 @@ public class Server {
         Scheduler.startTest(testId, experimentTest.getJavaPid());
         System.out.println("=> 正在执行 <=");
     }
-    // shield -s [testID] 终止实验 execute
+    // shield -s [testID] 终止实验 shut down
     private void stopTest(String[] subCmd) {
         if (subCmd.length != 3) {
             System.out.println("=> 终止实验 shield -s [testID] <=");
