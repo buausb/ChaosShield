@@ -1,5 +1,5 @@
 # ChaosShield
-运行在Ubuntu系统的简易混沌工程平台
+运行在Ubuntu系统的简易故障注入平台
 ## 配置
 * 自行配置Prometheus和Node Exporter充当监控模块
 * 需要curl工具
