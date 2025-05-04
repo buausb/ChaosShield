@@ -1,6 +1,7 @@
 package com.shield.chaosshield;
 
 import com.shield.chaosshield.common.ChaosType;
+import com.shield.chaosshield.common.State;
 import com.shield.chaosshield.common.TableInit;
 import com.shield.chaosshield.dao.ChaosShellDao;
 import com.shield.chaosshield.dao.ExperimentDetailDao;
@@ -299,6 +300,11 @@ public class Server {
             System.out.println("=> 删除实验，连带实验编排 shield -dt <=");
             return;
         }
+        ExperimentTest experimentTest = experimentTestDao.selectById(testId);
+        if (experimentTest == null || State.RUNNING.getState() == experimentTest.getState()) {
+            System.out.println("=> 删除实验失败，实验不存在或正在运行<=");
+            return;
+        }
         experimentTestDao.deleteById(testId);
         experimentDetailDao.deleteByTestId(testId);
         System.out.println("=> 删除成功 <=");
@@ -337,7 +343,7 @@ public class Server {
             System.out.println("=> 未知故障:shield -check_java [java_pid]  <=");
         }
     }
-
+    // shield -check_web 查看本机网卡规则
     private void checkWeb(String[] subCmd) {
         if (subCmd.length != 2) {
             System.out.println("=> shield -check_web 查看本机网卡规则 <=");
