@@ -27,16 +27,16 @@ public class Scheduler {
     private static final String SHUTDOWNLOCK = "shutdown";
 
     public static void startTest(int testId, int javaPid) {
-        ExperimentTest test = experimentTestDao.selectById(testId);
-        if (test == null) {
-            System.out.println("=> TEST ID NOT FOUND <=");
-            return;
-        }
-        if (State.RUNNING.getState() == test.getState()) {
-            System.out.println("=> TEST IS RUNNING <=");
-            return;
-        }
         synchronized (STARTLOCK) {
+            ExperimentTest test = experimentTestDao.selectById(testId);
+            if (test == null) {
+                System.out.println("=> TEST ID NOT FOUND <=");
+                return;
+            }
+            if (State.RUNNING.getState() == test.getState()) {
+                System.out.println("=> TEST IS RUNNING <=");
+                return;
+            }
             List<ExperimentDetail> experimentDetails = experimentDetailDao.selectByTestId(testId);
             ChaosShell shell;
             for (ExperimentDetail detail : experimentDetails) {
@@ -75,16 +75,16 @@ public class Scheduler {
     }
 
     public static void shutdownTest(int testId, int javaPid) {
-        ExperimentTest test = experimentTestDao.selectById(testId);
-        if (test == null) {
-            System.out.println("=> TEST ID NOT FOUND <=");
-            return;
-        }
-        if (State.NOT_RUNNING.getState() == test.getState()) {
-            System.out.println("=> TEST IS NOT RUNNING <=");
-            return;
-        }
         synchronized (SHUTDOWNLOCK) {
+            ExperimentTest test = experimentTestDao.selectById(testId);
+            if (test == null) {
+                System.out.println("=> TEST ID NOT FOUND <=");
+                return;
+            }
+            if (State.NOT_RUNNING.getState() == test.getState()) {
+                System.out.println("=> TEST IS NOT RUNNING <=");
+                return;
+            }
             List<ExperimentDetail> experimentDetails = experimentDetailDao.selectByTestId(testId);
             ChaosShell shell;
             for (ExperimentDetail detail : experimentDetails) {
