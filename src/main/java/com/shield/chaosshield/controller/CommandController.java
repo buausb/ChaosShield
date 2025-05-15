@@ -44,7 +44,7 @@ public class CommandController {
             res.append(test).append("\n");
         }
         res.append("+————————————————————————————————————————————————————————\n");
-        return new Response(Response.SUCCEED_NUM, res.toString());
+        return new Response(Response.SUCCEED_NUM, res.toString(), experimentTests);
     }
     // shield -d [testID] detail 展示实验编排细节
     @GetMapping("/d/{testid}")
@@ -56,7 +56,7 @@ public class CommandController {
             res.append(detail).append("\n");
         }
         res.append("+————————————————————————————————————————————————————————\n");
-        return new Response(Response.SUCCEED_NUM, res.toString());
+        return new Response(Response.SUCCEED_NUM, res.toString(), experimentDetails);
     }
     // shield -ac 展示所有故障 all chaos
     @GetMapping("/ac")
@@ -68,7 +68,7 @@ public class CommandController {
             res.append(shell).append("\n");
         }
         res.append("+————————————————————————————————————————————————————————\n");
-        return new Response(Response.SUCCEED_NUM, res.toString());
+        return new Response(Response.SUCCEED_NUM, res.toString(), chaosShells);
     }
     // shield -act 展示故障类别 all chaos type
     @GetMapping("/act")
@@ -83,7 +83,7 @@ public class CommandController {
                     .append("\n");
         }
         res.append("+————————————————————————————————————————————————————————\n");
-        return new Response(Response.SUCCEED_NUM, res.toString());
+        return new Response(Response.SUCCEED_NUM, res.toString(), ChaosType.values());
     }
     // shield -nt [testName] [目标JAVA项目的ｐｉｄ（没有写0）]新建实验 new test
     @GetMapping("/nt/{testname}/{javapid}")
